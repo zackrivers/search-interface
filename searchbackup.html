@@ -782,13 +782,17 @@
             }
 
             .button-row {
-                flex-direction: column;
-                gap: 0.75rem;
+                flex-direction: row;
+                gap: 1rem;
             }
 
-            .exact-btn,
+            .exact-btn {
+                flex: 0 0 auto;
+                min-width: 80px;
+            }
+            
             .submit-btn {
-                width: 100%;
+                flex: 1;
                 justify-content: center;
             }
 
@@ -1201,7 +1205,6 @@
                 </button>
                 
                 <button id="submitBtn" class="submit-btn">
-                    <span id="submitIcon">🔍</span>
                     <span id="submitText">Search</span>
                 </button>
             </div>
@@ -1422,10 +1425,8 @@
             submitBtn.disabled = isEmpty || isLoading;
             
             if (isLoading) {
-                submitIcon.innerHTML = '<span class="loading"></span>';
-                submitText.textContent = 'Searching...';
+                submitText.innerHTML = '<span class="loading"></span> Searching...';
             } else {
-                submitIcon.textContent = '🔍';
                 submitText.textContent = 'Search';
             }
         }
