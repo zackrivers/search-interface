@@ -1220,99 +1220,55 @@
     </div>
 
     <script>
-        // Mock document data with uniform lorem ipsum
-        const documents = [
-            { 
-                id: 1, 
-                title: "Introduction to Philosophy", 
-                type: "Academic Paper",
-                imageUrl: "https://picsum.photos/seed/philosophy/400/600"
-            },
-            { 
-                id: 2, 
-                title: "1984", 
-                type: "Classic Literature",
-                imageUrl: "https://picsum.photos/seed/book1984/400/600"
-            },
-            { 
-                id: 3, 
-                title: "Sample Invoice", 
-                type: "Business Document",
-                imageUrl: "https://picsum.photos/seed/invoice/400/600"
-            },
-            { 
-                id: 4, 
-                title: "Annual Budget Report 2024", 
-                type: "Financial Analysis",
-                imageUrl: "https://picsum.photos/seed/budget/400/600"
-            },
-            { 
-                id: 5, 
-                title: "Team Performance Metrics", 
-                type: "HR Analytics",
-                imageUrl: "https://picsum.photos/seed/metrics/400/600"
-            },
-            { 
-                id: 6, 
-                title: "Security Audit Report", 
-                type: "Compliance Document",
-                imageUrl: "https://picsum.photos/seed/security/400/600"
-            },
-            { 
-                id: 7, 
-                title: "Product Launch Strategy", 
-                type: "Strategic Planning",
-                imageUrl: "https://picsum.photos/seed/strategy/400/600"
-            },
-            { 
-                id: 8, 
-                title: "Customer Satisfaction Survey", 
-                type: "Market Research",
-                imageUrl: "https://picsum.photos/seed/survey/400/600"
-            },
-            { 
-                id: 9, 
-                title: "Vendor Compliance Documentation", 
-                type: "Legal Document",
-                imageUrl: "https://picsum.photos/seed/compliance/400/600"
-            },
-            { 
-                id: 10, 
-                title: "Quarterly Financial Review", 
-                type: "Executive Summary",
-                imageUrl: "https://picsum.photos/seed/quarterly/400/600"
-            },
-            { 
-                id: 11, 
-                title: "Employee Onboarding Guide", 
-                type: "Training Manual",
-                imageUrl: "https://picsum.photos/seed/onboarding/400/600"
-            },
-            { 
-                id: 12, 
-                title: "Technical Specification v2.0", 
-                type: "Engineering Document",
-                imageUrl: "https://picsum.photos/seed/technical/400/600"
-            },
-            { 
-                id: 13, 
-                title: "Marketing Campaign Analysis", 
-                type: "Performance Report",
-                imageUrl: "https://picsum.photos/seed/marketing/400/600"
-            },
-            { 
-                id: 14, 
-                title: "Risk Management Framework", 
-                type: "Policy Document",
-                imageUrl: "https://picsum.photos/seed/risk/400/600"
-            },
-            { 
-                id: 15, 
-                title: "Operational Procedures Manual", 
-                type: "Operations Guide",
-                imageUrl: "https://picsum.photos/seed/operations/400/600"
+        // Generate 100 dummy documents
+        function generateDocuments() {
+            const titles = [
+                "Introduction to Philosophy", "1984", "Sample Invoice", "Annual Budget Report 2024",
+                "Team Performance Metrics", "Security Audit Report", "Product Launch Strategy",
+                "Customer Satisfaction Survey", "Vendor Compliance Documentation", "Quarterly Financial Review",
+                "Employee Onboarding Guide", "Technical Specification v2.0", "Marketing Campaign Analysis",
+                "Risk Management Framework", "Operational Procedures Manual", "Financial Statements Q3",
+                "Data Privacy Policy", "Software Architecture Guide", "Brand Guidelines 2024",
+                "Performance Review Template", "Network Security Protocol", "User Experience Research",
+                "Project Management Handbook", "Code Review Standards", "Emergency Response Plan",
+                "Training Curriculum Design", "Quality Assurance Manual", "Business Process Documentation",
+                "IT Infrastructure Report", "Customer Journey Mapping", "Competitive Analysis Study",
+                "Regulatory Compliance Guide", "Investment Portfolio Review", "Sales Training Materials",
+                "Product Requirements Document", "System Administration Guide", "Crisis Communication Plan",
+                "Market Research Findings", "Internal Audit Report", "Strategic Planning Session",
+                "Content Strategy Framework", "API Documentation v3.1", "Change Management Process",
+                "Database Schema Design", "User Interface Mockups", "Budget Allocation Spreadsheet",
+                "Vendor Agreement Template", "Performance Optimization Guide", "Legal Contract Review",
+                "Technical Debt Assessment", "Customer Feedback Analysis", "Project Timeline Overview"
+            ];
+            
+            const types = [
+                "Academic Paper", "Classic Literature", "Business Document", "Financial Analysis",
+                "HR Analytics", "Compliance Document", "Strategic Planning", "Market Research",
+                "Legal Document", "Executive Summary", "Training Manual", "Engineering Document",
+                "Performance Report", "Policy Document", "Operations Guide", "Technical Specification",
+                "Design Guide", "Process Documentation", "Research Report", "Implementation Plan"
+            ];
+            
+            const documents = [];
+            
+            for (let i = 1; i <= 100; i++) {
+                const titleIndex = (i - 1) % titles.length;
+                const typeIndex = Math.floor(Math.random() * types.length);
+                const seed = `doc${i}`;
+                
+                documents.push({
+                    id: i,
+                    title: i > titles.length ? `${titles[titleIndex]} (${Math.floor(i / titles.length) + 1})` : titles[titleIndex],
+                    type: types[typeIndex],
+                    imageUrl: `https://picsum.photos/seed/${seed}/400/600`
+                });
             }
-        ];
+            
+            return documents;
+        }
+
+        const documents = generateDocuments();
 
         // State
         let isExactMode = false;
