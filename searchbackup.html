@@ -1372,10 +1372,15 @@
         let isLoading = false;
         let currentQuery = "philosophy"; // Simulated current search
         
-        // Density Control State
-        let currentDensity = 15; // Start with 15 cards
-        const densityLevels = [5, 10, 15, 30, 60]; // Possible densities
-        let currentDensityIndex = 2; // Start at 15 (index 2)
+        // Card Size Control State
+        let currentSizeIndex = 2; // Start at medium (index 2)
+        const cardSizes = [
+            { name: 'Tiny', minWidth: '280px' },    // 4-5 cards per row
+            { name: 'Small', minWidth: '350px' },   // 3-4 cards per row  
+            { name: 'Medium', minWidth: '450px' },  // 2-3 cards per row (current)
+            { name: 'Large', minWidth: '600px' },   // 1-2 cards per row
+            { name: 'Huge', minWidth: '800px' }     // 1 card per row
+        ];
 
         // DOM Elements
         const searchInput = document.getElementById('searchInput');
@@ -1534,59 +1539,61 @@
             }, 800);
         }
 
-        // Density Control Functions
-        function updateDensityButtons() {
-            lessBtn.disabled = currentDensityIndex === 0;
-            moreBtn.disabled = currentDensityIndex === densityLevels.length - 1;
+        // Card Size Control Functions
+        function updateSizeButtons() {
+            lessBtn.disabled = currentSizeIndex === 0;
+            moreBtn.disabled = currentSizeIndex === cardSizes.length - 1;
+            
+            // Update button text to show current size
+            lessBtn.textContent = currentSizeIndex > 0 ? `← ${cardSizes[currentSizeIndex - 1].name}` : 'Less';
+            moreBtn.textContent = currentSizeIndex < cardSizes.length - 1 ? `${cardSizes[currentSizeIndex + 1].name} →` : 'More';
         }
 
-        function changeDensity(direction) {
-            if (direction === 'more' && currentDensityIndex < densityLevels.length - 1) {
-                currentDensityIndex++;
-            } else if (direction === 'less' && currentDensityIndex > 0) {
-                currentDensityIndex--;
+        function changeCardSize(direction) {
+            if (direction === 'more' && currentSizeIndex < cardSizes.length - 1) {
+                currentSizeIndex++;
+            } else if (direction === 'less' && currentSizeIndex > 0) {
+                currentSizeIndex--;
             }
             
-            currentDensity = densityLevels[currentDensityIndex];
-            updateDensityButtons();
-            renderDocuments();
+            applyCardSize();
+            updateSizeButtons();
             
             // Save preference
-            localStorage.setItem('density-preference', currentDensityIndex);
+            localStorage.setItem('card-size-preference', currentSizeIndex);
         }
 
-        function loadDensityPreference() {
-            const saved = localStorage.getItem('density-preference');
+        function applyCardSize() {
+            const currentSize = cardSizes[currentSizeIndex];
+            const gridElement = document.getElementById('resultsGrid');
+            
+            // Apply the new grid template
+            gridElement.style.gridTemplateColumns = `repeat(auto-fit, minmax(${currentSize.minWidth}, 1fr))`;
+            
+            // Update results counter to show current view
+            resultsCounter.textContent = `${documents.length} documents • ${currentSize.name} view`;
+            
+            console.log(`Applied ${currentSize.name} size: ${currentSize.minWidth}`);
+        }
+
+        function loadSizePreference() {
+            const saved = localStorage.getItem('card-size-preference');
             if (saved !== null) {
-                currentDensityIndex = parseInt(saved);
-                currentDensity = densityLevels[currentDensityIndex];
+                currentSizeIndex = parseInt(saved);
             }
-            updateDensityButtons();
+            applyCardSize();
+            updateSizeButtons();
         }
 
-        // Render documents with density control
+        // Render documents (simplified)
         function renderDocuments() {
             resultsGrid.innerHTML = '';
-            
-            // Show only the number of documents based on current density
-            const visibleDocuments = documents.slice(0, currentDensity);
-            
-            visibleDocuments.forEach((doc, index) => {
-                const card = createDocumentCard(doc);
-                // Add slight stagger animation
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                resultsGrid.appendChild(card);
-                
-                // Animate in
-                setTimeout(() => {
-                    card.style.transition = 'all 0.3s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 50); // 50ms stagger between cards
+            documents.forEach(doc => {
+                resultsGrid.appendChild(createDocumentCard(doc));
             });
             
-            resultsCounter.textContent = `${visibleDocuments.length} of ${documents.length} documents shown using ${isExactMode ? 'Exact Match' : 'AI Semantic'} search`;
+            // Apply current card size after render
+            applyCardSize();
         }
 
         // Handle document click
@@ -1807,13 +1814,13 @@
 
         submitBtn.addEventListener('click', handleSearch);
 
-        // Density Control Event Listeners
-        lessBtn.addEventListener('click', () => changeDensity('less'));
-        moreBtn.addEventListener('click', () => changeDensity('more'));
+        // Card Size Control Event Listeners
+        lessBtn.addEventListener('click', () => changeCardSize('less'));
+        moreBtn.addEventListener('click', () => changeCardSize('more'));
 
         // Initialize
         loadTheme(); // Load saved theme first
-        loadDensityPreference(); // Load saved density
+        loadSizePreference(); // Load saved card size
         renderDocuments();
         updateUI();
         searchInput.value = currentQuery;
