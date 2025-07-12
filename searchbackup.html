@@ -484,10 +484,50 @@
             justify-content: center;
         }
 
+        .results-counter-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
         .results-counter {
             color: var(--text-muted);
             font-size: 0.875rem;
             font-weight: 500;
+        }
+
+        .density-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .density-btn {
+            background: transparent;
+            border: 1px solid var(--border-secondary);
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .density-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+        }
+
+        .density-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .density-divider {
+            color: var(--text-disabled);
+            font-size: 0.75rem;
         }
 
         .results-section {
@@ -748,9 +788,18 @@
                 padding: 1rem 0 0.5rem 0;
             }
 
+            .results-counter-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
             .results-counter {
                 font-size: 0.75rem;
                 text-align: center;
+            }
+
+            .density-controls {
+                display: none;
             }
 
             .results-section {
@@ -1163,8 +1212,15 @@
     <div class="main-container">
         <!-- Top 20% Spacer with Results Counter -->
         <div class="top-spacer">
-            <div class="results-counter" id="resultsCounter">
-                28 documents found using AI Semantic search
+            <div class="results-counter-row">
+                <div class="results-counter" id="resultsCounter">
+                    28 documents found using AI Semantic search
+                </div>
+                <div class="density-controls">
+                    <button id="lessBtn" class="density-btn">Less</button>
+                    <span class="density-divider">|</span>
+                    <button id="moreBtn" class="density-btn">More</button>
+                </div>
             </div>
         </div>
 
@@ -1315,6 +1371,11 @@
         let isExactMode = false;
         let isLoading = false;
         let currentQuery = "philosophy"; // Simulated current search
+        
+        // Density Control State
+        let currentDensity = 15; // Start with 15 cards
+        const densityLevels = [5, 10, 15, 30, 60]; // Possible densities
+        let currentDensityIndex = 2; // Start at 15 (index 2)
 
         // DOM Elements
         const searchInput = document.getElementById('searchInput');
@@ -1334,6 +1395,10 @@
         const compactCloseBtn = document.getElementById('compactCloseBtn');
         const compactGrid = document.getElementById('compactGrid');
         const compactInfo = document.getElementById('compactInfo');
+        
+        // Density Control Elements
+        const lessBtn = document.getElementById('lessBtn');
+        const moreBtn = document.getElementById('moreBtn');
 
         // Theme Management
         let currentTheme = 'vasilev';
@@ -1469,14 +1534,59 @@
             }, 800);
         }
 
-        // Render documents
+        // Density Control Functions
+        function updateDensityButtons() {
+            lessBtn.disabled = currentDensityIndex === 0;
+            moreBtn.disabled = currentDensityIndex === densityLevels.length - 1;
+        }
+
+        function changeDensity(direction) {
+            if (direction === 'more' && currentDensityIndex < densityLevels.length - 1) {
+                currentDensityIndex++;
+            } else if (direction === 'less' && currentDensityIndex > 0) {
+                currentDensityIndex--;
+            }
+            
+            currentDensity = densityLevels[currentDensityIndex];
+            updateDensityButtons();
+            renderDocuments();
+            
+            // Save preference
+            localStorage.setItem('density-preference', currentDensityIndex);
+        }
+
+        function loadDensityPreference() {
+            const saved = localStorage.getItem('density-preference');
+            if (saved !== null) {
+                currentDensityIndex = parseInt(saved);
+                currentDensity = densityLevels[currentDensityIndex];
+            }
+            updateDensityButtons();
+        }
+
+        // Render documents with density control
         function renderDocuments() {
             resultsGrid.innerHTML = '';
-            documents.forEach(doc => {
-                resultsGrid.appendChild(createDocumentCard(doc));
+            
+            // Show only the number of documents based on current density
+            const visibleDocuments = documents.slice(0, currentDensity);
+            
+            visibleDocuments.forEach((doc, index) => {
+                const card = createDocumentCard(doc);
+                // Add slight stagger animation
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                resultsGrid.appendChild(card);
+                
+                // Animate in
+                setTimeout(() => {
+                    card.style.transition = 'all 0.3s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 50); // 50ms stagger between cards
             });
             
-            resultsCounter.textContent = `${documents.length} documents found using ${isExactMode ? 'Exact Match' : 'AI Semantic'} search`;
+            resultsCounter.textContent = `${visibleDocuments.length} of ${documents.length} documents shown using ${isExactMode ? 'Exact Match' : 'AI Semantic'} search`;
         }
 
         // Handle document click
@@ -1697,8 +1807,13 @@
 
         submitBtn.addEventListener('click', handleSearch);
 
+        // Density Control Event Listeners
+        lessBtn.addEventListener('click', () => changeDensity('less'));
+        moreBtn.addEventListener('click', () => changeDensity('more'));
+
         // Initialize
         loadTheme(); // Load saved theme first
+        loadDensityPreference(); // Load saved density
         renderDocuments();
         updateUI();
         searchInput.value = currentQuery;
