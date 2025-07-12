@@ -478,7 +478,7 @@
         }
 
         .top-spacer {
-            height: 5vh;
+            padding: 3rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -748,6 +748,20 @@
                 display: none;
             }
 
+            .top-spacer {
+                padding: 1rem 0 0.5rem 0;
+            }
+
+            .results-counter {
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                border-radius: 0.5rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+                width: 90%;
+                text-align: center;
+            }
+
             .results-section {
                 padding: 0 1rem;
                 padding-bottom: 160px;
@@ -779,24 +793,58 @@
             }
 
             .document-card {
-                flex-direction: column;
-                text-align: center;
-                min-height: 200px;
+                flex-direction: row;
+                min-height: 80px;
+                width: 99%;
+                margin: 0 auto;
             }
 
             .document-content-area {
-                width: 100%;
-                padding: 1.25rem;
-                flex-direction: column;
-                text-align: center;
+                width: 50%;
+                padding: 0.75rem;
+                flex-direction: row;
+                text-align: left;
+                justify-content: flex-start;
+                align-items: center;
+                order: 2;
+                gap: 0.5rem;
+            }
+
+            .document-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+                flex-shrink: 0;
+            }
+
+            .document-content {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .document-title {
+                font-size: 0.875rem;
+                line-height: 1.2;
+                margin-bottom: 0.25rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .document-type {
+                font-size: 0.75rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .document-preview {
-                width: 100%;
-                height: 150px;
+                width: 50%;
+                height: 80px;
                 border-left: none;
-                border-top: 2px solid #4b5563;
-                border-radius: 0 0 1rem 1rem;
+                border-right: 2px solid #4b5563;
+                border-radius: 1rem 0 0 1rem;
+                order: 1;
             }
         }
 
@@ -1123,7 +1171,7 @@
         <!-- Top 20% Spacer with Results Counter -->
         <div class="top-spacer">
             <div class="results-counter" id="resultsCounter">
-                28 documents found using AI Semantic search (includes test cards)
+                28 documents found using AI Semantic search
             </div>
         </div>
 
@@ -1438,7 +1486,7 @@
                 resultsGrid.appendChild(createDocumentCard(doc));
             });
             
-            resultsCounter.textContent = `${documents.length} documents found using ${isExactMode ? 'Exact Match' : 'AI Semantic'} search (includes test cards)`;
+            resultsCounter.textContent = `${documents.length} documents found using ${isExactMode ? 'Exact Match' : 'AI Semantic'} search`;
         }
 
         // Handle document click
