@@ -1015,152 +1015,6 @@
             background: var(--text-muted);
         }
 
-        /* Footer - Pinned to bottom like header is pinned to top */
-        /* COMMENTED OUT - Terms and Conditions on pause
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-primary);
-            z-index: 100;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .terms-link {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            cursor: pointer;
-            padding: 0.4rem 0.8rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            text-decoration: none;
-            border-radius: 0.25rem;
-        }
-
-        .terms-link:hover {
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-        }
-        */
-
-        /* Footer Terms Modal - Slides up from bottom */
-        /* COMMENTED OUT - Terms and Conditions on pause
-        .footer-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            z-index: 1001;
-            transform: translateY(100vh);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .footer-modal.visible {
-            transform: translateY(0);
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-header {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 2rem;
-        }
-
-        .footer-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            transition: all 0.2s;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .footer-close:hover {
-            color: var(--text-primary);
-            background: var(--bg-tertiary);
-        }
-
-        .footer-text {
-            flex: 1;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .footer-text h3 {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .footer-text h4 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            margin: 2rem 0 1rem 0;
-            font-weight: 500;
-        }
-
-        .footer-text p {
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .footer-links {
-            margin: 2rem 0;
-            text-align: center;
-            font-size: 0.875rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-copyright {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-primary);
-        }
-
-        .footer-copyright p {
-            color: var(--text-disabled);
-            font-size: 0.875rem;
-            margin: 0;
-        }
-        */
 
         /* Highlight animation for live search selection */
         @keyframes highlight-flash {
@@ -1289,34 +1143,6 @@
                 padding: 0.5rem;
             }
 
-            /* COMMENTED OUT - Footer styles
-            .footer {
-                height: 35px;
-            }
-
-            .terms-link {
-                font-size: 0.65rem;
-                padding: 0.3rem 0.6rem;
-            }
-            */
-
-            /* COMMENTED OUT - Footer content styles
-            .footer-content {
-                padding: 1.5rem 1rem;
-            }
-            */
-
-            /* COMMENTED OUT - Footer text styles
-            .footer-text h3 {
-                font-size: 1.25rem;
-            }
-
-            .footer-close {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
-            }
-            */
         }
 
         /* Extra small phones */
@@ -1345,22 +1171,6 @@
             }
 
 
-            /* COMMENTED OUT - Footer styles
-            .footer {
-                height: 35px;
-            }
-
-            .terms-link {
-                font-size: 0.6rem;
-                padding: 0.25rem 0.5rem;
-            }
-            */
-
-            /* COMMENTED OUT - Footer content styles
-            .footer-content {
-                padding: 1rem 0.75rem;
-            }
-            */
         }
     </style>
 </head>
@@ -1514,21 +1324,6 @@
         </div>
     </div>
 
-    <!-- COMMENTED OUT - Terms and Conditions on pause
-    <!-- Footer Terms Modal -->
-    <div class="footer-modal" id="footerModal">
-        <div class="footer-content">
-            <div class="footer-header">
-                <button class="footer-close" id="footerCloseBtn">×</button>
-            </div>
-            <div class="footer-text">
-                <div class="footer-copyright">
-                    <p>© 2024 Manifest. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
 
     <!-- Compact View Modal -->
     <div class="compact-modal" id="compactModal">
@@ -1582,13 +1377,6 @@
         const compactGrid = document.getElementById('compactGrid');
         const compactInfo = document.getElementById('compactInfo');
         
-        // COMMENTED OUT - Terms and Footer Elements
-        /*
-        const termsLinkContainer = document.getElementById('termsLinkContainer');
-        const termsLink = document.getElementById('termsLink');
-        const footerModal = document.getElementById('footerModal');
-        const footerCloseBtn = document.getElementById('footerCloseBtn');
-        */
         
         // Density Control Elements
         const lessBtn = document.getElementById('lessBtn');
@@ -1907,18 +1695,6 @@
             compactInfo.textContent = `${documents.length} documents`;
         }
 
-        // COMMENTED OUT - Terms and Conditions Modal Functions
-        /*
-        function openFooterModal() {
-            footerModal.classList.add('visible');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeFooterModal() {
-            footerModal.classList.remove('visible');
-            document.body.style.overflow = 'auto';
-        }
-        */
 
         // Initialize theme from localStorage
         function initializeTheme() {
@@ -2017,11 +1793,6 @@
         compactViewBtn.addEventListener('click', openCompactView);
         compactCloseBtn.addEventListener('click', closeCompactView);
 
-        // COMMENTED OUT - Footer Event Listeners
-        /*
-        termsLink.addEventListener('click', openFooterModal);
-        footerCloseBtn.addEventListener('click', closeFooterModal);
-        */
 
         // Card Size Control Event Listeners
         lessBtn.addEventListener('click', () => changeCardSize('less'));
@@ -2043,12 +1814,6 @@
                 if (compactModal.classList.contains('visible')) {
                     closeCompactView();
                 }
-                // COMMENTED OUT - Footer modal close
-                /*
-                else if (footerModal.classList.contains('visible')) {
-                    closeFooterModal();
-                }
-                */
             }
         });
 
