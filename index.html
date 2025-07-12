@@ -29,29 +29,6 @@
             --theme-name: "Steel";
         }
 
-        [data-theme="steel"] {
-            /* Steel - Default Dark */
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2a2a2a;
-            --bg-tertiary: #374151;
-            --bg-quaternary: #4b5563;
-            --text-primary: #ffffff;
-            --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
-            --text-disabled: #6b7280;
-            --border-primary: #374151;
-            --border-secondary: #4b5563;
-            --accent-blue: #3b82f6;
-            --accent-blue-hover: #2563eb;
-            --accent-green: #10b981;
-            --accent-green-hover: #059669;
-            --accent-red: #ef4444;
-            --shadow-light: rgba(0, 0, 0, 0.3);
-            --shadow-heavy: rgba(0, 0, 0, 0.5);
-            --highlight-bg: rgba(59, 130, 246, 0.1);
-            --highlight-border: rgba(59, 130, 246, 0.3);
-            --theme-name: "Steel";
-        }
 
         [data-theme="terracotta"] {
             /* Early 4x5 Work - Grayscale */
@@ -1486,7 +1463,13 @@
         // Theme switching functionality
         function switchTheme(theme) {
             currentTheme = theme;
-            document.body.setAttribute('data-theme', theme);
+            
+            // Steel theme uses :root defaults, others use data-theme attribute
+            if (theme === 'steel') {
+                document.body.removeAttribute('data-theme');
+            } else {
+                document.body.setAttribute('data-theme', theme);
+            }
             
             // Update active state in settings dropdown
             document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
