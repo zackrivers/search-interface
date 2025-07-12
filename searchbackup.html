@@ -1058,6 +1058,192 @@
             background: var(--text-muted);
         }
 
+        /* Terms and Conditions Link */
+        .terms-link-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .terms-link-container.visible {
+            opacity: 1;
+        }
+
+        .terms-link {
+            background: none;
+            border: none;
+            color: var(--text-disabled);
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+            border-radius: 0.25rem;
+        }
+
+        .terms-link:hover {
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Footer Terms Modal */
+        .footer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 1001;
+            transform: translateY(100vh);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .footer-modal.visible {
+            transform: translateY(0);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+
+        .footer-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-close:hover {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .footer-text {
+            flex: 1;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .footer-text h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-text h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 500;
+        }
+
+        .footer-text p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .footer-copyright p {
+            color: var(--text-disabled);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* Mobile styles for terms link */
+        @media (max-width: 768px) {
+            .terms-link-container {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .terms-link {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.4rem;
+                color: var(--text-disabled);
+                opacity: 0.7;
+            }
+
+            .footer-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .footer-text h3 {
+                font-size: 1.25rem;
+            }
+
+            .footer-close {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-link-container {
+                bottom: 8px;
+                right: 8px;
+            }
+
+            .terms-link {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.3rem;
+                opacity: 0.6;
+            }
+
+            .footer-content {
+                padding: 1rem 0.75rem;
+            }
+        }
+
         /* Mobile compact view */
         @media (max-width: 768px) {
             .compact-modal {
@@ -1203,6 +1389,47 @@
         </div>
     </div>
 
+    <!-- Terms and Conditions Link -->
+    <div class="terms-link-container" id="termsLinkContainer" style="display: none;">
+        <button class="terms-link" id="termsLink">terms and conditions</button>
+    </div>
+
+    <!-- Footer Terms Modal -->
+    <div class="footer-modal" id="footerModal">
+        <div class="footer-content">
+            <div class="footer-header">
+                <button class="footer-close" id="footerCloseBtn">×</button>
+            </div>
+            <div class="footer-text">
+                <h3>Terms and Conditions</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                
+                <h4>Privacy Policy</h4>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                
+                <h4>Acceptable Use</h4>
+                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                
+                <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+                
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a> • 
+                    <a href="#">Terms of Use</a> • 
+                    <a href="#">Contact</a> • 
+                    <a href="#">Support</a>
+                </div>
+                
+                <div class="footer-copyright">
+                    <p>© 2024 Manifest. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Compact View Modal -->
     <div class="compact-modal" id="compactModal">
         <div class="compact-window">
@@ -1303,6 +1530,12 @@
         const compactCloseBtn = document.getElementById('compactCloseBtn');
         const compactGrid = document.getElementById('compactGrid');
         const compactInfo = document.getElementById('compactInfo');
+        
+        // Terms and Footer Elements
+        const termsLinkContainer = document.getElementById('termsLinkContainer');
+        const termsLink = document.getElementById('termsLink');
+        const footerModal = document.getElementById('footerModal');
+        const footerCloseBtn = document.getElementById('footerCloseBtn');
         
         // Density Control Elements
         const lessBtn = document.getElementById('lessBtn');
@@ -1738,11 +1971,51 @@
             setTimeout(handleViewportChange, 100);
         });
 
-        // Simulate infinite scroll (optional)
-        let page = 1;
+        // Terms and Conditions Footer Functions
+        let hasShownTermsLink = false;
+
+        function checkScrollForTerms() {
+            const scrollTop = window.scrollY;
+            const documentHeight = document.body.scrollHeight;
+            const windowHeight = window.innerHeight;
+            
+            // Show terms link when user has scrolled to the very bottom
+            if (scrollTop + windowHeight >= documentHeight - 10) {
+                if (!hasShownTermsLink) {
+                    termsLinkContainer.classList.add('visible');
+                    termsLinkContainer.style.display = 'block';
+                    hasShownTermsLink = true;
+                }
+            }
+        }
+
+        function openFooterModal() {
+            footerModal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFooterModal() {
+            footerModal.classList.remove('visible');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Footer Event Listeners
+        termsLink.addEventListener('click', openFooterModal);
+        footerCloseBtn.addEventListener('click', closeFooterModal);
+
+        // Close footer on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && footerModal.classList.contains('visible')) {
+                closeFooterModal();
+            }
+        });
+
+        // Scroll detection for terms link
         window.addEventListener('scroll', () => {
+            checkScrollForTerms();
+            
+            // Original infinite scroll detection
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
-                // Load more documents here
                 console.log('Near bottom - would load more documents');
             }
         });
